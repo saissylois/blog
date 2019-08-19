@@ -1,0 +1,44 @@
+
+<% if current_user %>
+  Logged in as <%= current_user.email %>.
+  <%= link_to 'Log Out', logout_path %>
+<% else %>
+  <%= link_to 'Sign Up', signup_path %> or 
+  <%= link_to 'Log In', login_path %>
+<% end %>
+
+<p id='notice'><%= notice %></p>
+
+
+
+<h1>Listing articles</h1>
+ 
+ <% if current_user %>
+<%= link_to 'New article', new_article_path %>
+<% end %>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Text</th>
+     <th>Author</th>
+    <th></th>
+  </tr>
+ 
+  <% @articles.each do |article| %>
+    <tr>
+      <td><%= article.title %></td>
+      <td><%= article.text %></td>
+      <td><%= article.createdBy %></td>
+      <td><%= link_to 'Show', article_path(article) %></td>
+       
+       <% if current_user && (current_user.id == article.createdById) %>
+          <td><%= link_to 'Edit', edit_article_path(article) %></td>
+          <td><%= link_to 'Destroy', article_path(article),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+
+    </tr>
+  <% end %>
+</table>

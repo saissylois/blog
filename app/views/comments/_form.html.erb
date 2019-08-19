@@ -1,0 +1,14 @@
+
+<%= form_with(model: [ @article, @article.comments.build ], local: true) do |form| %>
+
+    <%= form.text_field :commenter, value: current_user.name, :hidden => true %>
+    <%= form.text_field :createdById, value: current_user.id, :hidden => true %>
+
+  <p>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
